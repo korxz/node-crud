@@ -1,0 +1,25 @@
+<div>
+    <ul>
+        <% comments.forEach((comment) => { %>
+            <li>
+                Author: <%= comment.author %>, Text: <%= comment.text %>
+                <button onclick="deleteComment(this.getAttribute('data-id'))" data-id="<%= comment._id %>">Delete comment</button>
+            </li>
+        <%  }) %>
+    </ul>
+</div> 
+
+<script>
+    function deleteComment(id) {
+        console.log(id)
+        let req = new XMLHttpRequest();
+        req.addEventListener('load', ajaxResponseDeleteComment);
+        req.open('DELETE', '/comments/delete/' + id);
+        req.send();
+    }
+
+    function ajaxResponseDeleteComment(response) {
+        console.log(this.response);
+        window.location.reload();
+    }
+</script>

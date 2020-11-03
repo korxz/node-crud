@@ -1,0 +1,19 @@
+<fieldset>
+    <label for="author">Author</label>
+    <input type="text" name="author" value="<%= news.author.username %>">
+</fieldset>
+
+<fieldset>
+    <label for="title">Title</label>
+    <input name="title" type="text" value="<%= news.title %>">
+</fieldset>
+
+<fieldset>
+    <label for="text">Text</label>
+    <textarea name="text" cols="30" rows="10"><%= news.text %></textarea>
+</fieldset>
+
+<fieldset>
+    <label for="topics">Topics</label>
+    <input type="text" name="topics" value="<%= news.topics.name %>">
+</fieldset>

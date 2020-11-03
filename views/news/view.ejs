@@ -1,0 +1,38 @@
+<div>
+    <ul>
+        <% news.forEach((singleNews) => { %>
+            <li>
+                <div style="background-color: royalblue; margin: 5px;padding: 5px;">
+                    <p>Author: <%= singleNews.author.username %></p>
+                    <p>Posted: <%= singleNews.timestamps %></p>
+                    <p>Topic: <%= singleNews.topics.name %></p>
+                    <p><%= singleNews.text %></p>
+
+                    <div style="display: inline-block;">
+                        <button 
+                            onclick="deleteNews(this.getAttribute('data-id'))" 
+                            data-id="<%= singleNews._id %>">
+                            Delete news
+                        </button>
+
+                        <a href="/news/<%= singleNews._id %>/edit">Edit news</a>
+                    </div>
+                </div>
+            </li>
+        <%  }) %>
+    </ul>
+</div> 
+
+<script>
+    function deleteNews(id) {
+        let req = new XMLHttpRequest();
+        req.addEventListener('load', ajaxResponseDeleteComment);
+        req.open('DELETE', '/news/delete/' + id);
+        req.send();
+    }
+
+    function ajaxResponseDeleteComment(response) {
+        console.log(this.response);
+        window.location.reload();
+    }
+</script>
