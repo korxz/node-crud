@@ -46,3 +46,16 @@ exports.deleteComment = async (req, res) => {
         res.status(500).send(error.message);
     }
 }
+
+exports.updateComment = async (req, res) => {
+    try {
+        const comment = await Comment.findByIdAndUpdate(req.params.commentId, {text: req.body.text});
+
+        res.status(200).send({
+            'message': 'Comment successfuly updated',
+            id: comment._id
+        })
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}

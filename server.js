@@ -23,8 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(methodOverride('_method'))
 
-mongoose.connect(process.env.DATABASE_URL, {
-    useNewUrlParser: true
+ mongoose.connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+    useFindAndModify: false
 })
 
 const db = mongoose.connection;
@@ -52,5 +53,6 @@ app.get('/comments', commentsRouter.getComments);
 app.get('/comments/add', commentsRouter.getCommentForm);
 app.post('/comments/add', commentsRouter.setComment);
 app.delete('/comments/delete/:commentId', commentsRouter.deleteComment);
+app.put('/comments/:commentId', commentsRouter.updateComment);
 
 app.listen(process.env.PORT || 3000)
