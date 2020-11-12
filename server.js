@@ -12,6 +12,7 @@ const indexRouter = require('./routes/index');
 const commentsRouter = require('./routes/comment');
 const newsRouter = require('./routes/news');
 const authorRouter = require('./routes/author');
+const topicsRouter = require('./routes/topic');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -54,5 +55,9 @@ app.get('/comments/add', commentsRouter.getCommentForm);
 app.post('/comments/add', commentsRouter.setComment);
 app.delete('/comments/delete/:commentId', commentsRouter.deleteComment);
 app.put('/comments/:commentId', commentsRouter.updateComment);
+
+// Topic
+app.get('/topics', topicsRouter.getTopics);
+app.post('topics', topicsRouter.setTopic);
 
 app.listen(process.env.PORT || 3000)
