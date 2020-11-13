@@ -1,9 +1,10 @@
 name: Hello world
 
 # On push to prod branch
-on: push
-  branches:
-  - prod
+on: 
+  push:
+    branches:
+    - prod
 
 jobs:
   hello-world:
