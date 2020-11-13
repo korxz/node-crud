@@ -3,12 +3,12 @@ name: Hello world
 # On push to prod branch
 on: push
   branches:
-    - prod
+  - prod
 
 jobs:
   hello-world:
     name: Hello world job
     runs-on: ubuntu-latest
     steps:
-      - name: Print hello world
+    - name: Print hello world
       run: echo Hello world
