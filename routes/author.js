@@ -4,6 +4,16 @@ exports.getAuthorForm = (req, res) => {
     res.render('author/add', { title: 'Author add', author: new Author() });
 }
 
+exports.getAuthors = async (req, res) => {
+    try {
+        const authors = await Author.find({})
+
+        res.status(200).send(authors)
+    } catch (error) {
+        res.status(500).json(error.message)
+    }
+}
+
 exports.setAuthor = async (req, res) => {
     try {
         const author = new Author({
@@ -14,9 +24,12 @@ exports.setAuthor = async (req, res) => {
         });
 
         const newAuthor = await author.save();
-        res.redirect('/author/add');
+
+        res.status(201).json({
+            'message': 'New author was created.'
+        })
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).json(error.message);
     }
 }
 

@@ -8,10 +8,13 @@ exports.getNews = async (req, res) => {
             .populate('author')
             .populate('topics');
 
+        /*
         res.status(200).render('news/view', {
             title: 'All news',
             news: news
         });
+        */
+       res.status(200).json(news);
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -31,7 +34,7 @@ exports.setNews = async (req, res) => {
 
         await Topic.findOne({ name: req.body.topics }, async (err, topic) => {
             if (err) {
-                res.redirect('/news/add')
+                res.status(500).json(err)
             }
             
             if (topic == null) {
@@ -47,7 +50,7 @@ exports.setNews = async (req, res) => {
 
         await Author.findOne({ username: req.body.author }, (err, author) => {
             if (err || author == null) {
-                res.redirect('/news/add')
+                res.status(500).json(err)
             }
 
             news.author = author;
@@ -55,9 +58,12 @@ exports.setNews = async (req, res) => {
 
         const newNews = await news.save();
         
-        res.redirect('/news');
+        //res.redirect('/news');
+        res.status(201).json({
+            'message': 'News was created.'
+        });
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(500).json(error.message);
     }
 };
 

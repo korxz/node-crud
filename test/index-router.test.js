@@ -7,3 +7,11 @@ describe('Index Router', () => {
         expect(res.status).toHaveBeenCalledWith(200);
     })
 })
+
+describe('Get topics', () => {
+    test('Get topics, should return 200 and json', async () => {
+        const res = await router.get('/topics')
+        .expect(res.status).toHaveBeenCalledWith(200)
+        .expect(res).toHaveProperty('name');
+    })
+})

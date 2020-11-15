@@ -37,8 +37,9 @@ db.on('open', () => console.log('Connected to Mongoose'))
 app.get('/', indexRouter.index);
 
 // Author
+app.get('/authors', authorRouter.getAuthors);
 app.get('/author/add', authorRouter.getAuthorForm);
-app.post('/author/add', authorRouter.setAuthor);
+app.post('/authors', authorRouter.setAuthor);
 app.put('/author/edit/:authorId', authorRouter.putAuthor);
 app.delete('/author/delete/:authorId', authorRouter.deleteAuthor);
 
