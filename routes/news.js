@@ -4,16 +4,21 @@ const Author = require('../models/author');
 
 exports.getNews = async (req, res) => {
     try {
-        const news = await News.find({})
+        const news = await News.find({
+            author: req.query.author,
+            topic: req.query.topic
+        })
             .populate('author')
             .populate('topics');
 
-        /*
-        res.status(200).render('news/view', {
-            title: 'All news',
-            news: news
-        });
-        */
+        if (req.query.author != 'undefined') {
+            //news.where('author', req.query.author)
+        }
+
+        if (req.query.topic != 'undefined') {
+            //news.where('topic', req.query.topic)
+        }
+
        res.status(200).json(news);
     } catch (error) {
         res.status(500).send(error.message);
