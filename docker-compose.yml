@@ -19,3 +19,11 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
+
+  node:
+    build:
+      context: ./.docker/node
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3000:3000
