@@ -23,6 +23,9 @@ services:
   node:
     build:
       context: ./.docker/node
+    depends_on:
+      - mongo
+      - mongo-express
     volumes:
       - ./:/usr/src/app
     ports:

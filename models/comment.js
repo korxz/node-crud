@@ -8,6 +8,11 @@ const commentSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true
+    },
+    news: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'News'
     }
 });
 

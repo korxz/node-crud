@@ -1,9 +1,10 @@
 const Comment = require('../models/comment');
-
+const News = require('../models/news');
 
 exports.getComments = async (req, res) => {
     try {
         const comments = await Comment.find({})
+            .populate('news')
 
         res.status(200).render('comment/view', {title: 'All comments', comments: comments});
     } catch (error) {
@@ -15,21 +16,23 @@ exports.getCommentForm = (req, res) => {
     res.render('comment/add', { title: 'Add comment', comment: new Comment() })
 }
 
-exports.setComment = (req, res) => {
+exports.setComment = async (req, res) => {
+    const news = await News.findById(req.body.news);
+
     const comment = new Comment({
         author: req.body.author,
-        text: req.body.text
+        text: req.body.text,
+        news: news
     });
 
     comment.save((err, newComment) => {
         if (err) {
-            res.render('add', {
-                author: comment.author,
-                text: comment.text,
-                errorMessage: 'Error creating a comment'
-            });
+            res.status(500).json(err)
         } else {
-            res.redirect('/comments')
+            //res.redirect('/comments')
+            res.status(201).json({
+                'message': 'Comment was created.'
+            })
         }
     })
 }
@@ -38,7 +41,7 @@ exports.deleteComment = async (req, res) => {
     try {
         const comment = await Comment.findByIdAndRemove(req.params.commentId);
 
-        res.status(200).send({
+        res.status(200).json({
             message: 'Comment successfully deleted',
             id: comment._id
         })
@@ -51,7 +54,7 @@ exports.updateComment = async (req, res) => {
     try {
         const comment = await Comment.findByIdAndUpdate(req.params.commentId, {text: req.body.text});
 
-        res.status(200).send({
+        res.status(200).json({
             'message': 'Comment successfuly updated',
             id: comment._id
         })
