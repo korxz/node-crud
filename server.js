@@ -13,6 +13,7 @@ const commentsRouter = require('./routes/comment');
 const newsRouter = require('./routes/news');
 const authorRouter = require('./routes/author');
 const topicsRouter = require('./routes/topic');
+const { request } = require('express');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -24,7 +25,13 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(methodOverride('_method'))
 
- mongoose.connect(process.env.DATABASE_URL, {
+// Middleware
+
+const myLogger = require('./middleware/jwt')
+
+app.use(myLogger({option1: '1', option2: '2'}))
+
+mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useFindAndModify: false
 })

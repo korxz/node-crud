@@ -9,3 +9,8 @@ App is accessable on:
 ```sh
 127.0.0.1:3000
 ```
+
+To run Jest tests execute command
+```sh
+$ npm run test
+```
