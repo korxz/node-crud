@@ -61,4 +61,6 @@ app.put('/comments/:commentId', commentsRouter.updateComment);
 app.get('/topics', topicsRouter.getTopics);
 app.post('topics', topicsRouter.setTopic);
 
+module.exports = app;
+
 app.listen(process.env.PORT || 3000)

@@ -4,10 +4,7 @@ const Author = require('../models/author');
 
 exports.getNews = async (req, res) => {
     try {
-        const news = await News.find({
-            author: req.query.author,
-            topic: req.query.topic
-        })
+        const news = await News.find({})
             .populate('author')
             .populate('topics');
 
