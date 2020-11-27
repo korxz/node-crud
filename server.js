@@ -20,25 +20,27 @@ app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
 
 app.use(expressLayouts);
-app.use(express.static('public'))
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(methodOverride('_method'))
+app.use(methodOverride('_method'));
 
 // Middleware
 
-const myLogger = require('./middleware/jwt')
+const myLogger = require('./middleware/jwt');
 
-app.use(myLogger({option1: '1', option2: '2'}))
+app.use(myLogger({option1: '1', option2: '2'}));
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
     useFindAndModify: false
-})
+});
 
 const db = mongoose.connection;
+// eslint-disable-next-line no-console
 db.on('error', error => console.error(error));
-db.on('open', () => console.log('Connected to Mongoose'))
+// eslint-disable-next-line no-console
+db.on('open', () => console.log('Connected to Mongoose'));
 
 // Homepage routes
 app.get('/', indexRouter.index);
@@ -70,4 +72,4 @@ app.post('topics', topicsRouter.setTopic);
 
 module.exports = app;
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 3000);

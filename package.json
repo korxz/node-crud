@@ -7,7 +7,8 @@
     "start": "node server.js",
     "watch-node": "nodemon server.js",
     "test": "jest --forceExit --coverage --verbose",
-    "watch-test": "npm run test -- --watchAll"
+    "watch-test": "npm run test -- --watchAll",
+    "lint": "eslint \"**/*.js\""
   },
   "author": "Rok Silič",
   "license": "ISC",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "dotenv": "^8.2.0",
     "eslint": "^7.14.0",
+    "eslint-plugin-import": "^2.22.1",
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "supertest": "^6.0.1"

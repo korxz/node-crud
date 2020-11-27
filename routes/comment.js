@@ -4,17 +4,17 @@ const News = require('../models/news');
 exports.getComments = async (req, res) => {
     try {
         const comments = await Comment.find({})
-            .populate('news')
+            .populate('news');
 
         res.status(200).render('comment/view', {title: 'All comments', comments: comments});
     } catch (error) {
         res.status(500).send(error.message);
     }
-}
+};
 
 exports.getCommentForm = (req, res) => {
-    res.render('comment/add', { title: 'Add comment', comment: new Comment() })
-}
+    res.render('comment/add', { title: 'Add comment', comment: new Comment() });
+};
 
 exports.setComment = async (req, res) => {
     const news = await News.findById(req.body.news);
@@ -27,15 +27,15 @@ exports.setComment = async (req, res) => {
 
     comment.save((err, newComment) => {
         if (err) {
-            res.status(500).json(err)
+            res.status(500).json(err);
         } else {
             //res.redirect('/comments')
             res.status(201).json({
                 'message': 'Comment was created.'
-            })
+            });
         }
-    })
-}
+    });
+};
 
 exports.deleteComment = async (req, res) => {
     try {
@@ -44,11 +44,11 @@ exports.deleteComment = async (req, res) => {
         res.status(200).json({
             message: 'Comment successfully deleted',
             id: comment._id
-        })
+        });
     } catch (error) {
         res.status(500).send(error.message);
     }
-}
+};
 
 exports.updateComment = async (req, res) => {
     try {
@@ -57,8 +57,8 @@ exports.updateComment = async (req, res) => {
         res.status(200).json({
             'message': 'Comment successfuly updated',
             id: comment._id
-        })
+        });
     } catch (error) {
-        res.status(500).send(error.message)
+        res.status(500).send(error.message);
     }
-}
+};

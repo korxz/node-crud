@@ -2,17 +2,17 @@ const Author = require('../models/author');
 
 exports.getAuthorForm = (req, res) => {
     res.render('author/add', { title: 'Author add', author: new Author() });
-}
+};
 
 exports.getAuthors = async (req, res) => {
     try {
-        const authors = await Author.find({})
+        const authors = await Author.find({});
 
-        res.status(200).send(authors)
+        res.status(200).send(authors);
     } catch (error) {
-        res.status(500).json(error.message)
+        res.status(500).json(error.message);
     }
-}
+};
 
 exports.setAuthor = async (req, res) => {
     try {
@@ -27,16 +27,16 @@ exports.setAuthor = async (req, res) => {
 
         res.status(201).json({
             'message': 'New author was created.'
-        })
+        });
     } catch (error) {
         res.status(500).json(error.message);
     }
-}
+};
 
 exports.putAuthor = async (req, res) => {
     res.redirect('/author/add');
-}
+};
 
 exports.deleteAuthor = async (req, res) => {
     res.redirect('author/add');
-}
+};

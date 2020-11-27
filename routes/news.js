@@ -16,11 +16,11 @@ exports.getNews = async (req, res) => {
             //news.where('topic', req.query.topic)
         }
 
-       res.status(200).json(news);
+        res.status(200).json(news);
     } catch (error) {
         res.status(500).send(error.message);
     }
-}
+};
 
 exports.getNewsForm = (req, res) => {
     res.render('news/add', { title: 'Add news', news: new News() });
@@ -36,13 +36,13 @@ exports.setNews = async (req, res) => {
 
         await Topic.findOne({ name: req.body.topics }, async (err, topic) => {
             if (err) {
-                res.status(500).json(err)
+                res.status(500).json(err);
             }
             
             if (topic == null) {
                 const newTopic = new Topic({
                     name: req.body.topics
-                })
+                });
 
                 news.topics = await newTopic.save();
             } else {
@@ -52,11 +52,11 @@ exports.setNews = async (req, res) => {
 
         await Author.findOne({ username: req.body.author }, (err, author) => {
             if (err || author == null) {
-                res.status(500).json(err)
+                res.status(500).json(err);
             }
 
             news.author = author;
-        })
+        });
 
         const newNews = await news.save();
         

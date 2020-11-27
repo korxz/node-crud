@@ -13,16 +13,16 @@ exports.getTopics = async (req, res) => {
         res.status(404)
             .send(error.message);
     }
-}
+};
 
 exports.getTopicByName = async (req, res) => {
     try {
 
     } catch (error) {
         res.status(404)
-            .send(error.message)
+            .send(error.message);
     }
-}
+};
 
 exports.setTopic = async (req, res) => {
     try {
@@ -33,14 +33,14 @@ exports.setTopic = async (req, res) => {
         topic.save((err, newTopic) => {
             if (err) {
                 res.status(404)
-                    .send(err.message)
+                    .send(err.message);
             } else {
                 res.status(200)
-                    .json(newTopic)
+                    .json(newTopic);
             }
-        })
+        });
     } catch (error) {
         res.status(404)
-            .send(error.message)
+            .send(error.message);
     }
-}
+};
