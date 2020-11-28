@@ -2,9 +2,13 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ prod ]
+    branches:
+      - prod
+      - 'feature/**'
+      - 'hotfix/**'
   pull_request:
-    branches: [ prod ]
+    branches:
+      - prod
 
 jobs:
   build:
@@ -20,3 +24,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: npm run lint
