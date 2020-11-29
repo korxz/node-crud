@@ -16,3 +16,5 @@ rules:
     - 4
   no-console:
     - error
+  no-var:
+    - error

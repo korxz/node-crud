@@ -6,13 +6,13 @@ const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
-var methodOverride = require('method-override');
+const methodOverride = require('method-override');
 
-const indexRouter = require('./routes/index');
-const commentsRouter = require('./routes/comment');
-const newsRouter = require('./routes/news');
-const authorRouter = require('./routes/author');
-const topicsRouter = require('./routes/topic');
+const indexRouter = require('./controllers/index');
+const commentsRouter = require('./controllers/comment');
+const newsRouter = require('./controllers/news');
+const authorRouter = require('./controllers/author');
+const topicsRouter = require('./controllers/topic');
 const { request } = require('express');
 
 app.set('view engine', 'ejs');
