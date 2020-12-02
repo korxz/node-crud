@@ -8,12 +8,14 @@ const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
-const indexRouter = require('./controllers/index');
-const commentsRouter = require('./controllers/comment');
-const newsRouter = require('./controllers/news');
-const authorRouter = require('./controllers/author');
-const topicsRouter = require('./controllers/topic');
-const { request } = require('express');
+//const { request } = require('express');
+
+const indexRouter = require('./routes/index');
+const loginRouter = require('./routes/login');
+const authorRouter = require('./routes/author');
+const newsRouter = require('./routes/news');
+const commentRouter = require('./routes/comment');
+const topicRouter = require('./routes/topic');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -26,10 +28,7 @@ app.use(express.urlencoded());
 app.use(methodOverride('_method'));
 
 // Middleware
-
 const myLogger = require('./middleware/jwt');
-
-app.use(myLogger({option1: '1', option2: '2'}));
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
@@ -43,32 +42,22 @@ db.on('error', error => console.error(error));
 db.on('open', () => console.log('Connected to Mongoose'));
 
 // Homepage routes
-app.get('/', indexRouter.index);
+app.use('/api', indexRouter);
 
-// Author
-app.get('/authors', authorRouter.getAuthors);
-app.get('/author/add', authorRouter.getAuthorForm);
-app.post('/authors', authorRouter.setAuthor);
-app.put('/author/edit/:authorId', authorRouter.putAuthor);
-app.delete('/author/delete/:authorId', authorRouter.deleteAuthor);
+// Auth routes
+app.use('/api/auth', loginRouter);
+
+// Author routes
+app.use('/api/authors', authorRouter);
 
 // News routes
-app.get('/news', newsRouter.getNews);
-app.get('/news/add', newsRouter.getNewsForm);
-app.post('/news', newsRouter.setNews);
-app.get('/news/:newsId/edit', newsRouter.getNewsEditForm);
-app.put('/news/:newsId', newsRouter.updateNews);
+app.use('/api/news', newsRouter);
 
 // Comments routes
-app.get('/comments', commentsRouter.getComments);
-app.get('/comments/add', commentsRouter.getCommentForm);
-app.post('/comments/add', commentsRouter.setComment);
-app.delete('/comments/delete/:commentId', commentsRouter.deleteComment);
-app.put('/comments/:commentId', commentsRouter.updateComment);
+app.use('/api/comments', commentRouter);
 
-// Topic
-app.get('/topics', topicsRouter.getTopics);
-app.post('topics', topicsRouter.setTopic);
+// Topicroutes
+app.use('/api/topics', topicRouter);
 
 module.exports = app;
 

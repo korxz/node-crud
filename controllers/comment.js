@@ -6,7 +6,7 @@ exports.getComments = async (req, res) => {
         const comments = await Comment.find({})
             .populate('news');
 
-        res.status(200).render('comment/view', {title: 'All comments', comments: comments});
+        res.status(200).json(comments);
     } catch (error) {
         res.status(500).send(error.message);
     }
