@@ -3,8 +3,8 @@ const accessTokenSecret = 'tokensecret';
 
 module.exports = (req, res, next) => {
     const { headers } = req;
+    // eslint-disable-next-line no-console
     console.log(headers);
-
 
     if (headers.authorization != undefined) {
         const token = authHeader.split(' ')[1];
@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 
             req.user = user;
             return next();
-        })
+        });
     } else {
         return res.status(403);
     }

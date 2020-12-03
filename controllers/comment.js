@@ -29,9 +29,8 @@ exports.setComment = async (req, res) => {
         if (err) {
             res.status(500).json(err);
         } else {
-            //res.redirect('/comments')
             res.status(201).json({
-                'message': 'Comment was created.'
+                newComment
             });
         }
     });

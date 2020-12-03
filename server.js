@@ -11,11 +11,12 @@ const methodOverride = require('method-override');
 //const { request } = require('express');
 
 const indexRouter = require('./routes/index');
-const loginRouter = require('./routes/login');
+const loginRouter = require('./routes/auth/login');
 const authorRouter = require('./routes/author');
 const newsRouter = require('./routes/news');
 const commentRouter = require('./routes/comment');
 const topicRouter = require('./routes/topic');
+const registerRouter = require('./routes/auth/register');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -28,7 +29,7 @@ app.use(express.urlencoded());
 app.use(methodOverride('_method'));
 
 // Middleware
-const myLogger = require('./middleware/jwt');
+//const myLogger = require('./middleware/jwt');
 
 mongoose.connect(process.env.DATABASE_URL, {
     useNewUrlParser: true,
@@ -46,6 +47,7 @@ app.use('/api', indexRouter);
 
 // Auth routes
 app.use('/api/auth', loginRouter);
+app.use('/api/auth', registerRouter);
 
 // Author routes
 app.use('/api/authors', authorRouter);

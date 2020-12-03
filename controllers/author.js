@@ -26,7 +26,7 @@ exports.setAuthor = async (req, res) => {
         const newAuthor = await author.save();
 
         res.status(201).json({
-            'message': 'New author was created.'
+            newAuthor
         });
     } catch (error) {
         res.status(500).json(error.message);

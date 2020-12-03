@@ -62,7 +62,7 @@ exports.setNews = async (req, res) => {
         
         //res.redirect('/news');
         res.status(201).json({
-            'message': 'News was created.'
+            newNews
         });
     } catch (error) {
         res.status(500).json(error.message);

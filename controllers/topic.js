@@ -1,4 +1,3 @@
-const { render } = require('ejs');
 const Topic = require('../models/topic');
 
 exports.getTopics = async (req, res) => {
