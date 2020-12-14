@@ -15,22 +15,15 @@ exports.getAuthors = async (req, res) => {
 };
 
 exports.setAuthor = async (req, res) => {
-    try {
-        const author = new Author({
-            name: req.body.name,
-            surname: req.body.surname,
-            username: req.body.username,
-            email: req.body.email
-        });
-
-        const newAuthor = await author.save();
-
-        res.status(201).json({
-            newAuthor
-        });
-    } catch (error) {
-        res.status(500).json(error.message);
-    }
+    await Author.create({
+        name: req.body.name,
+        surname: req.body.surname,
+        username: req.body.username,
+        email: req.body.email
+    }, (err, author) => {
+        if (err) res.status(500).json(err);
+        res.status(201).json(author);
+    });
 };
 
 exports.putAuthor = async (req, res) => {

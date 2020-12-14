@@ -27,46 +27,29 @@ exports.getNewsForm = (req, res) => {
 };
 
 exports.setNews = async (req, res) => {
-    try {
+    const author = await Author.findOne({ username: req.body.author }, (err, author) => {
+        if (err || author == null) res.status(500).json(err);
+    });
 
-        const news = new News({
-            title: req.body.title,
-            text: req.body.text,
-        });
+    const topic = await Topic.findOne({ name: req.body.topics }, async (err, topic) => {
+        if (err) res.status(500).json(err);
 
-        await Topic.findOne({ name: req.body.topics }, async (err, topic) => {
-            if (err) {
-                res.status(500).json(err);
-            }
-            
-            if (topic == null) {
-                const newTopic = new Topic({
-                    name: req.body.topics
-                });
+        if (topic == null) {
+            return await Topic.create({
+                name: req.body.topics
+            });
+        }
+    });
 
-                news.topics = await newTopic.save();
-            } else {
-                news.topics = topic;
-            }
-        });
-
-        await Author.findOne({ username: req.body.author }, (err, author) => {
-            if (err || author == null) {
-                res.status(500).json(err);
-            }
-
-            news.author = author;
-        });
-
-        const newNews = await news.save();
-        
-        //res.redirect('/news');
-        res.status(201).json({
-            newNews
-        });
-    } catch (error) {
-        res.status(500).json(error.message);
-    }
+    await News.create({
+        title: req.body.title,
+        text: req.body.text,
+        author: author,
+        topics: topic
+    }, (err, news) => {
+        if (err) res.status(500).json(err);
+        res.status(201).json(news);
+    });
 };
 
 exports.getNewsEditForm = async (req, res) => {

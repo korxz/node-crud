@@ -19,20 +19,13 @@ exports.getCommentForm = (req, res) => {
 exports.setComment = async (req, res) => {
     const news = await News.findById(req.body.news);
 
-    const comment = new Comment({
+    await Comment.create({
         author: req.body.author,
         text: req.body.text,
         news: news
-    });
-
-    comment.save((err, newComment) => {
-        if (err) {
-            res.status(500).json(err);
-        } else {
-            res.status(201).json({
-                newComment
-            });
-        }
+    }, (err, comment) => {
+        if (err) res.status(500).json(err);
+        res.status(201).json(comment);
     });
 };
 
