@@ -15,16 +15,12 @@ exports.getTopics = async (req, res) => {
 };
 
 exports.getTopicByName = async (req, res) => {
-
     await Topic.find()
-        .where({
-            name: req.body.name
-        })
+        .where('name').equals(req.body.name)
         .exec((err, topic) => {
             if (err) res.status(500).json(err);
             res.status(200).json(topic);
         });
-
 };
 
 exports.setTopic = async (req, res) => {

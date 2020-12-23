@@ -26,4 +26,8 @@ const newsSchema = new mongoose.Schema({
     timestamps: {}
 });
 
+newsSchema.statics.getNumberOfComments = async () => {
+    return this.comments.find({}).count({});
+}
+
 module.exports = mongoose.model('News', newsSchema);
